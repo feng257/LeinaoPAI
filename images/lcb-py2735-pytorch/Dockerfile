@@ -1,5 +1,6 @@
 # This image contains all the libs and environment necessary for compiling and running Faster R-CNN
 FROM 10.11.3.8:5000/nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
+#FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH PATH=/usr/local/cuda-8.0/bin:$PATH
 
@@ -74,8 +75,11 @@ RUN	pip install opencv-python easydict  && \
 		python3-tk \
 		time \
 		vim \
+                screen \
+                tmux \
 		&& \
-	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy \
+#	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy \
+        pip install numpy \
 		scipy \
 		sklearn \
 		matplotlib \
@@ -88,8 +92,8 @@ RUN	pip install opencv-python easydict  && \
 		pandas \
 		imageio \
 		cython \
-		ipython \
-		jupyter \
+#		jupyter==1.0.0 \
+                packaging \
 		SimpleITK \
 		pydicom \
 		tqdm \
@@ -98,5 +102,9 @@ RUN	pip install opencv-python easydict  && \
 		tensorflow-gpu==1.4.0 && \
     pip install torch==0.4.0 torchvision \
     	cython &&\
-	git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j install
+    pip3 install torch==0.4.1 torchvision \
+        datetime \
+        scipy \
+        && \
+	git clone https://github.com/NVIDIA/nccl.git && cd nccl && make -j src.build
 
